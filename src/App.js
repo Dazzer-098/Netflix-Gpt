@@ -1,19 +1,10 @@
 import "./App.css";
+import Body from "./Components/Body";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p className="text-red-50">RahulChauhan</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Body />
     </div>
   );
 }
