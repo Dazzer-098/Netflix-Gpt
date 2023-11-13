@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "./Header";
+import { formValidate } from "../utility/formValidation";
 
 const Login = () => {
   const [isSignIn, setIssignIn] = useState(true);
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
+
   function ToggleSignin() {
     setIssignIn(!isSignIn);
+  }
+  function validateFormInput() {
+    if (!isSignIn) {
+      console.log(formValidate([name, email, password]));
+    } else {
+      console.log(formValidate([email, password]));
+    }
+    // console.log(email.current.name);
   }
 
   return (
@@ -14,7 +27,7 @@ const Login = () => {
         src="https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/0efe6360-4f6d-4b10-beb6-81e0762cfe81/IN-en-20231030-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
         alt="netflixbg-Img"
       />
-      <div class="absolute  bg-black opacity-50 w-full h-[846px]"></div>
+      <div className="absolute  bg-black opacity-50 w-full h-[846px]"></div>
       <Header />
       <div className="relative flex flex-col items-center z-11 w-1/4  rounded-lg py-[50px] bg-black bg-opacity-70 mx-auto ">
         <form className="flex flex-col w-4/5 ">
@@ -23,22 +36,37 @@ const Login = () => {
           </label>
           {!isSignIn && (
             <input
+              ref={name}
+              name="name"
               type="text"
               className="h-14 rounded-lg my-7 px-4 text-white text-lg bg-gray-700"
               placeholder="Full name"
             />
           )}
           <input
+            ref={email}
+            name="email"
             type="text"
-            className="h-14 rounded-lg my-7 px-4 text-white text-lg bg-gray-700"
+            className="email h-14 rounded-lg my-7 px-4 text-white text-lg bg-gray-700"
             placeholder="Email or Phone number"
           />
           <input
+            ref={password}
+            name="password"
             type="password"
-            className="h-14 rounded-lg my-7 text-lg text-white px-4 bg-gray-700"
+            className="h-14 rounded-lg my-7 text-lg text-white px-4 bg-gray-700 password"
             placeholder="Password"
           />
-          <button className="bg-red-950 text-white  h-14 font-semibold ">
+
+          {/*********Sign In and Sign up Button ***********************/}
+
+          <button
+            className="bg-red-950 text-white  h-14 font-semibold "
+            onClick={function (e) {
+              e.preventDefault();
+              validateFormInput();
+            }}
+          >
             {isSignIn ? "Sign in" : "Sign up"}
           </button>
         </form>
