@@ -1,23 +1,104 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
 import { formValidate } from "../utility/formValidation";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utility/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utility/userSlice";
 
 const Login = () => {
   const [isSignIn, setIssignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+  const navigate = useNavigate();
 
   function ToggleSignin() {
     setIssignIn(!isSignIn);
   }
   function validateFormInput() {
     if (!isSignIn) {
-      console.log(formValidate([name, email, password]));
+      const message = formValidate([name, email, password]);
+      // setErrorMessage();
+      if (message == null) {
+        // signUp
+        createUserWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            const user = userCredential;
+            console.log(user);
+            updateProfile(auth.currentUser, {
+              displayName: name.current.value,
+              photoURL: "https://example.com/jane-q-user/profile.jpg",
+            })
+              .then(() => {
+                // Profile updated!
+                // ...
+                const { email, uid, displayName, photoURL } = auth.currentUser;
+                console.log(auth.currentUser);
+                dispatch(
+                  addUser({
+                    email: email,
+                    uid: uid,
+                    displayName: displayName,
+                    photoURL: photoURL,
+                  })
+                );
+              })
+              .catch((error) => {
+                // An error occurred
+                // ...
+              });
+            // Signed up
+
+            navigate("/browse");
+
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const SignupError = error.message;
+            setErrorMessage(errorCode + "-" + SignupError);
+            // ..
+          });
+      } else {
+        setErrorMessage(message);
+      }
     } else {
-      console.log(formValidate([email, password]));
+      const message = formValidate([email, password]);
+      if (message == null) {
+        signInWithEmailAndPassword(
+          auth,
+          email.current.value,
+          password.current.value
+        )
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            // alert("Your are SignedIn");
+
+            navigate("/browse");
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const signInError = error.message;
+            setErrorMessage(errorCode + "-" + signInError);
+          });
+      } else {
+        setErrorMessage(message);
+      }
     }
-    // console.log(email.current.name);
   }
 
   return (
@@ -31,7 +112,7 @@ const Login = () => {
       <Header />
       <div className="relative flex flex-col items-center z-11 w-1/4  rounded-lg py-[50px] bg-black bg-opacity-70 mx-auto ">
         <form className="flex flex-col w-4/5 ">
-          <label className="text-white font-semibold text-5xl">
+          <label className="text-white font-semibold text-4xl my-4">
             {isSignIn ? "Sign in" : "Sign up"}
           </label>
           {!isSignIn && (
@@ -39,7 +120,7 @@ const Login = () => {
               ref={name}
               name="name"
               type="text"
-              className="h-14 rounded-lg my-7 px-4 text-white text-lg bg-gray-700"
+              className="h-14 rounded-lg my-3 px-4 text-white text-lg bg-gray-700"
               placeholder="Full name"
             />
           )}
@@ -47,16 +128,17 @@ const Login = () => {
             ref={email}
             name="email"
             type="text"
-            className="email h-14 rounded-lg my-7 px-4 text-white text-lg bg-gray-700"
+            className="email h-14 rounded-lg my-3 px-4 text-white text-lg bg-gray-700"
             placeholder="Email or Phone number"
           />
           <input
             ref={password}
             name="password"
             type="password"
-            className="h-14 rounded-lg my-7 text-lg text-white px-4 bg-gray-700 password"
+            className="h-14 rounded-lg my-4 text-lg text-white px-4 bg-gray-700 password"
             placeholder="Password"
           />
+          <p className="text-orange-700 my-1">{errorMessage}</p>
 
           {/*********Sign In and Sign up Button ***********************/}
 
@@ -90,7 +172,22 @@ const Login = () => {
           </h4>
           <p
             className="text-white px-1 font-bold cursor-pointer"
-            onClick={ToggleSignin}
+            onClick={function () {
+              ToggleSignin();
+              setErrorMessage("");
+
+              if (!isSignIn) {
+                [name, email, password].map(function (i) {
+                  i.current.value = "";
+                  return i;
+                });
+              } else {
+                [email, password].map(function (i) {
+                  i.current.value = "";
+                  return i;
+                });
+              }
+            }}
           >
             {isSignIn ? "Sign Up now" : "Sign in"}
           </p>
