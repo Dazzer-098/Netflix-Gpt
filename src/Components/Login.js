@@ -7,9 +7,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utility/firebase";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utility/userSlice";
+import { netflix_icon } from "../utility/constant";
 
 const Login = () => {
   const [isSignIn, setIssignIn] = useState(true);
@@ -18,7 +19,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-  const navigate = useNavigate();
 
   function ToggleSignin() {
     setIssignIn(!isSignIn);
@@ -39,7 +39,7 @@ const Login = () => {
             console.log(user);
             updateProfile(auth.currentUser, {
               displayName: name.current.value,
-              photoURL: "https://example.com/jane-q-user/profile.jpg",
+              photoURL: netflix_icon,
             })
               .then(() => {
                 // Profile updated!
@@ -60,8 +60,6 @@ const Login = () => {
                 // ...
               });
             // Signed up
-
-            navigate("/browse");
 
             // ...
           })
@@ -87,7 +85,6 @@ const Login = () => {
             const user = userCredential.user;
             // alert("Your are SignedIn");
 
-            navigate("/browse");
             // ...
           })
           .catch((error) => {
