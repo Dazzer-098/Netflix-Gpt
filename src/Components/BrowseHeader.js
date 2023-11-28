@@ -19,7 +19,7 @@ const BrowseHeader = () => {
       });
   }
   return (
-    <div className="relative z-10 flex items-center justify-between px-1 py-1 bg-gradient-to-b from-black">
+    <div className="absolute z-10  w-full flex items-center justify-between px-1 py-1 bg-gradient-to-b from-black">
       <div className="flex flex-row gap-7">
         <Header />
 
