@@ -1,4 +1,5 @@
 import "./App.css";
+import "./index.css";
 import Body from "./Components/Body";
 import { Provider } from "react-redux";
 import store from "./utility/store";

@@ -99,15 +99,15 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-full relative">
       <img
-        className="absolute h-screen w-screen"
+        className="absolute"
         src="https://assets.nflxext.com/ffe/siteui/vlv3/ab4b0b22-2ddf-4d48-ae88-c201ae0267e2/0efe6360-4f6d-4b10-beb6-81e0762cfe81/IN-en-20231030-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
         alt="netflixbg-Img"
       />
       <div className="absolute  bg-black opacity-50 w-screen h-screen"></div>
       <Header />
-      <div className="relative flex flex-col items-center z-11 w-1/4  rounded-lg py-[50px] bg-black bg-opacity-70 mx-auto ">
+      <div className="relative flex flex-col items-center z-10 w-1/4  rounded-lg py-[50px] bg-black bg-opacity-70 mx-auto ">
         <form className="flex flex-col w-4/5 ">
           <label className="text-white font-semibold text-4xl my-4">
             {isSignIn ? "Sign in" : "Sign up"}

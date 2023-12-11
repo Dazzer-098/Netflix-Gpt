@@ -28,7 +28,7 @@ const MainContainer = () => {
 
   return (
     <div className=" ">
-      <div className="absolute z-0 w-full aspect-video   bg-gradient-to-r from-black pt-[35%]">
+      <div className="absolute z-0  w-full aspect-video   bg-gradient-to-r from-black pt-[25%]">
         <p className=" pl-12 text-7xl text-white font-bold ">{title}</p>
         <p className={"pl-12 w-[50%] mt-4 text-white font-semibold text-base"}>
           {overview}

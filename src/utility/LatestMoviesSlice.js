@@ -6,6 +6,7 @@ const LatestMoviesSlice = createSlice({
     nowPlaying: null,
     randomMovies: Math.round(Math.random() * 10) * 2,
     nowPlayingTrailer: null,
+    popular: null,
   },
   reducers: {
     addMovies: function (state, action) {
@@ -14,7 +15,10 @@ const LatestMoviesSlice = createSlice({
     addTrailer: function (state, action) {
       state.nowPlayingTrailer = action.payload;
     },
+    addPopular: function (state, action) {
+      state.popular = action.payload;
+    },
   },
 });
 export default LatestMoviesSlice.reducer;
-export const { addMovies, addTrailer } = LatestMoviesSlice.actions;
+export const { addMovies, addTrailer, addPopular } = LatestMoviesSlice.actions;

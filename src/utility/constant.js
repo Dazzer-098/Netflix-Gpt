@@ -12,3 +12,19 @@ export const API_options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YjY2ZmMxODhhODAxNjNlZTM4YzQzZTkwZjJjMWJiZiIsInN1YiI6IjY1NThlNmI4YjU0MDAyMTRkODJkMGE1MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3IzVzz1HReYZULAhzSqMPxLJKSQCJnrP_M-sBU-m7aY",
   },
 };
+export const MoviesPosterPath = "https://image.tmdb.org/t/p/w500";
+export const language = {
+  en: {
+    placeholderLang: "Search for movies/tv shows/MovieSeries",
+    SearchButtonLang: "Search",
+  },
+  Hi: {
+    placeholderLang: "फिल्में/टीवी शो/मूवी सीरीज खोजें",
+    SearchButtonLang: "खोज",
+  },
+  fr: {
+    placeholderLang:
+      "rechercher des films/émissions de télévision/séries de films",
+    SearchButtonLang: "recherche",
+  },
+};

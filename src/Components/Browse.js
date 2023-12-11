@@ -3,22 +3,30 @@ import React from "react";
 import BrowseHeader from "./BrowseHeader";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import MainContainer from "./MainContainer";
-import MovieList from "./MovieList";
+
 import useMovieFetch from "../hooks/useMovieFetch";
+import SecondaryContainer from "./SecondaryContainer";
+import usePopular from "../hooks/usePopular";
+import GptSearch from "./GptSearch";
 
 const Browse = () => {
-  const userdata = useSelector(function (store) {
-    return store.userInfo;
+  const Toggledata = useSelector(function (store) {
+    return store.GptSearchToggle.toggle;
   });
   useMovieFetch();
+  usePopular();
 
   return (
     <div className=" text-sm ">
       <BrowseHeader />
-      <div>
-        <MainContainer />
-        <MovieList />
-      </div>
+      {Toggledata ? (
+        <GptSearch />
+      ) : (
+        <div>
+          <MainContainer />
+          <SecondaryContainer />
+        </div>
+      )}
     </div>
   );
 };

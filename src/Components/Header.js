@@ -41,7 +41,7 @@ const Header = () => {
     };
   }, []);
   return (
-    <div className="flex items-center justify-between px-1 py-1 ">
+    <div className="relative flex items-center justify-between px-1 py-1 ">
       <div className="flex flex-row gap-7">
         <img className=" w-[200px]" src={netflix_logo} alt="netflix-logo" />
       </div>
